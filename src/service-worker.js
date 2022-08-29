@@ -75,19 +75,7 @@ registerRoute(
 
 //custom install flow
 
-var deferredEvent ;
 
-self.addEventListener("beforeinstallprompt", (event) => {
-  console.log("beforeinstallprompt event listener");
-  event.preventDefault();
-  deferredEvent = event;
-  console.log("event ",event)
-  console.log("deferredEvent ",deferredEvent)
-});
-
-function showCustomInstall(){
-  deferredEvent.prompt()
-}
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
@@ -96,7 +84,6 @@ self.addEventListener("message", async (event) => {
     self.skipWaiting();
   }
   if (event.data && event.data.type === "SHOW_CUSTOM_INSTALL") {
-    showCustomInstall()
   }
 });
 // Any other custom service worker logic can go here.

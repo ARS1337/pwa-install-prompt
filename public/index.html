@@ -6,6 +6,7 @@
   <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Web site created using create-react-app" />
+  <meta name="theme-color" content="#4285f4">
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
   <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -23,49 +24,29 @@
     -->
   <title>PWA Example</title>
   <script>
-    console.log("adding listenere...")
-    navigator.serviceWorker.addEventListener('message', async event => {
-      console.log("inside listener")
-      // Optional: ensure the message came from workbox-broadcast-update
-      if (event.data.meta === 'workbox-broadcast-update') {
-        const { cacheName, updatedURL } = event.data.payload;
+    var deferredEvent;
 
-        // Do something with cacheName and updatedURL.
-        // For example, get the cached content and update
-        // the content on the page.
-        const cache = await caches.open(cacheName);
-        const updatedResponse = await cache.match(updatedURL);
-        const updatedText = await updatedResponse.text();
-        console.log('content updated: ', updatedText)
-      }
+    window.addEventListener("beforeinstallprompt", (event) => {
+      console.log("beforeinstallprompt event listener");
+      event.preventDefault();
+      deferredEvent = event;
+      console.log("event ", event)
+      console.log("deferredEvent ", deferredEvent)
     });
-    const getDailyNewsInCache =async()=>{
-  let res = await fetch('http://www.google.com')
-  return res
-}
 
-navigator.serviceWorker.ready.then(async (registration) => {
-  if (registration.periodicSync) {
-    alert("Periodic Background Sync is supported.");
-    const status = await navigator.permissions.query({name: 'periodic-background-sync'});
-    if (status.state === "granted") {
-      console.log("granted");
-      await registration.periodicSync.register("get-daily-news", {
-        minInterval: 24 * 60 * 60 * 1000,
-      });
-      self.addEventListener("periodicsync", (event) => {
-        if (event.tag === "get-daily-news") {
-          event.waitUntil(getDailyNewsInCache());
-        }
-      });
-    } else {
-      console.log("not granted");
+    window.onload =(e)=>{
+      let installButton = document.getElementById("installButton");
+      if(installButton){
+        installButton.addEventListener('click',e=>{
+          showCustomInstall()
+        })
+      }
     }
-    //
-  } else {
-    alert("Periodic Background Sync isn't supported.");
-  }
-});
+
+
+    function showCustomInstall() {
+      deferredEvent.prompt()
+    }
 
   </script>
 </head>

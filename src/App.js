@@ -34,13 +34,12 @@ const Main = () => {
     }
   }, []);
 
-  const handleInstall=()=>{
-    swListener.customInstall(registration.active)
-  }
-
   return (
     <>
-      <button onClick={handleInstall}>Install</button>
+      <div>
+        install for better experience:
+        <button id="installButton">Install</button>
+      </div>
       <h1>Welcome to React Router!</h1>
       <Link to="Counter">Counter</Link>
       <br />
