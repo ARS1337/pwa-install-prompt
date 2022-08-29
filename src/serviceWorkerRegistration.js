@@ -35,12 +35,6 @@ export function register(config) {
       return;
     }
 
-    window.addEventListener('beforeinstallprompt', (event) => {
-      // Prevent the mini-infobar from appearing on mobile.
-      event.preventDefault();
-      // window.alert( 'beforeinstallprompt');
-    });
-
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
