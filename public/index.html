@@ -34,13 +34,16 @@
       console.log("deferredEvent ", deferredEvent)
     });
 
-    window.addEventListener('load',(e)=> {
-      let installButton = document.getElementById("installButton");
-      if(installButton) {
-        installButton.addEventListener('click', e => {
-          showCustomInstall()
-        })
-      }
+    window.addEventListener('load', (e) => {
+      setTimeout(() => {
+        let installButton = document.getElementById("installButton");
+        if (installButton) {
+          installButton.addEventListener('click', e => {
+            showCustomInstall()
+          })
+        }
+      }, 3000)
+
     });
 
 
