@@ -34,14 +34,14 @@
       console.log("deferredEvent ", deferredEvent)
     });
 
-    window.onload =(e)=>{
+    window.addEventListener('load',(e)=> {
       let installButton = document.getElementById("installButton");
-      if(installButton){
-        installButton.addEventListener('click',e=>{
+      if(installButton) {
+        installButton.addEventListener('click', e => {
           showCustomInstall()
         })
       }
-    }
+    });
 
 
     function showCustomInstall() {
